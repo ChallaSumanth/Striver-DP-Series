@@ -120,4 +120,40 @@ public class Solution {
 
 }
 //optimal
+import java.util.*;
+
+public class Solution {
+
+	public static int longestIncreasingSubsequence(int arr[]) {
+		//Your code goes here
+		int n = arr.length;
+		List<Integer> ans = new ArrayList<>();
+		ans.add(arr[0]);
+		for(int i = 1; i < n; i++)
+		{
+	
+			 if(arr[i] > ans.get(ans.size() - 1))
+				ans.add(arr[i]);
+			else
+			{
+				int idx = findPos(0, arr[i], ans.size() - 1, ans);
+				ans.set(idx, arr[i]);
+			}
+		}
+		return ans.size();
+	}
+	private static int findPos(int start, int key, int end, List<Integer> ans)
+	{
+		while(start < end)
+		{
+			int mid = start + (end - start) / 2;
+			if(ans.get(mid) < key)
+				start = mid + 1;
+			else
+				end = mid;
+		}
+		return start;
+	}
+
+}
 
